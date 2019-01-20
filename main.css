@@ -1,6 +1,21 @@
 body {
+	font-family: 'Raleway', sans-serif;
 	height: 100vh;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+#quote-box {
+	opacity: 0.9;
+}
+
+#new-quote {
+	background-color: grey;
+	opacity: 1;
+}
+
+#tweet-quote {
+	color: grey;
+	opacity: 1;
 }
