@@ -1,40 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+  <head>
+    <title>Random Quote Machine</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<head>
-	<title>Random Quote Machine</title>
+    <!-- Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-	<!-- Bootstrap -->
-	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-	<!-- Font Awesome -->
-	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    
+    <!-- import the webpage's javascript file -->
+    <script src="/script.js" defer></script>
 
-	<link rel="stylesheet" href="main.css" type="text/css">
+  </head>
 
-</head>
+  <body class="bgImg">
+    
+    <div id="quote-box" class="card w-50 shadow">
+      <div class="card-body m-3">
+        <blockquote class="blockquote mb-0">
+          <div id="quote-text">
+            <span id="text" class="text-center lead"></span>
+          </div>
+          <footer id="author" class="blockquote-footer text-right font-italic"></footer>
+        </blockquote>
+        <div class="container mt-4">
+          <div class="row align-items-center">
+            <div class="col text-left">
+              <a id="tweet-quote" herf="" target="_blank"><i class="fa fa-twitter-square fa-3x"></i></a>
+            </div>
+            <div class="col text-right">
+              <a id="new-quote" href="#" class="btn btn-secondary">New Quote</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<body>
-
-<div id="quote-box" class="card w-50 shadow">
-	<div class="card-body m-3">
-		<blockquote class="blockquote mb-0">
-			<p id="text" class="text-center">This is an example quote.</p>
-			<footer id="author" class="blockquote-footer text-right">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-		</blockquote>
-		<div class="container">
-			<div class="row align-items-center">
-				<div class="col text-left">
-					<a id="tweet-quote" href="https://twitter.com/intent/tweet" target="_blank"><i class="fa fa-twitter-square fa-3x"></i></a>
-				</div>
-				<div class="col text-right">
-					<a id="new-quote" href="#" class="btn btn-secondary">New Quote</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-</body>
+    <script src="main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.0.1/color-thief.min.js"></script>
+    
+  </body>
 
 </html>
