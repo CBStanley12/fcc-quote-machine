@@ -6,17 +6,32 @@ body {
 	justify-content: center;
 }
 
-.bgImg {
-	position: absolute;
+.bg-img {
+	background-size: cover;
 	height: 100vh;
-	width: 100vw;
-	left: 0px;
-	top: 0px;
+	min-width: 100%;
+	opacity: 1;
+	position: absolute;
 	z-index: -1;
+	-webkit-animation: load 2s linear;
+	animation: load 2s linear;
 }
 
 #quote-box {
+	display: none;
 	opacity: 0.9;
+	-webkit-animation: load 1s linear;
+	animation: load 1s linear;
+}
+
+@-webkit-keyframes load {
+	0% { opacity: 0; }
+	100% { opacity: 0.9; }
+}
+
+@keyframes load {
+	0% { opacity: 0; }
+	100% { opacity: 0.9; }
 }
 
 #new-quote {
@@ -27,4 +42,30 @@ body {
 #tweet-quote {
 	color: grey;
 	opacity: 1;
+}
+
+.loader {
+	display: none;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: 1;
+	width: 8rem;
+	height: 8rem;
+	margin: -3rem 0 0 -3rem;
+	border: 1rem solid #f3f3f3;
+	border-radius: 50%;
+	border-top: 1rem solid #3498db;
+	-webkit-animation: spin 2s linear infinite;
+	animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+	0% { -webkit-transform: rotate(0deg); }
+	100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+	0% { -webkit-transform: rotate(0deg); }
+	100% { -webkit-transform: rotate(360deg); }
 }

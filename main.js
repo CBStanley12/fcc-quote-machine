@@ -1,9 +1,12 @@
+const QUOTE_BOX = document.querySelector(`#quote-box`);
 const AUTHOR = document.querySelector(`#author`);
 const QUOTE = document.querySelector(`#text`);
-const BG_IMG = document.querySelector(`.bgImg`);
+const BG_IMG = document.querySelector(`.bg-img`);
+const LOADER = document.querySelector(`.loader`);
 
 
 window.onload = () => {
+	displayLoader(true);
 	getData();
 };
 
@@ -14,17 +17,29 @@ async function getData() {
 	await quote;
 	await image;
 
-	quote.then(response => response.json())
-		.then(data => displayQuote(data))
+	displayLoader(false);
 
 	image.then(data => displayImage(data))
+
+	quote.then(response => response.json())
+		.then(data => displayQuote(data))
+}
+
+function displayLoader(state) {
+	if (state) {
+		LOADER.style.display = `block`;
+	} else {
+		LOADER.style.display = `none`;
+	}
 }
 
 function displayQuote(quote) {
+	QUOTE_BOX.style.display = `block`;
+
 	AUTHOR.innerText = quote.author;
 	QUOTE.innerText = quote.en;
 }
 
 function displayImage(image) {
-	BG_IMG.src = image.url;
+	BG_IMG.style.backgroundImage = `url(${image.url})`;
 }
