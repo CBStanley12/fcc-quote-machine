@@ -1,5 +1,5 @@
 <h1 align="center">Random Quote Machine</h1>
-<p align="center">Generates a random quote from the Quotes on Design API and a random background image from the Unsplash API</p>
+<p align="center">Generates a random quote and a random background image</p>
 
 ## Table of Contents
 * [Project Status](#project-status)
@@ -17,13 +17,14 @@ This project is currently: _In Progress_
 Complete:
 - [X] Generate a random quote and background image when the "New Quote" button is clicked
 - [X] Users can tweet the quote by clicking the Twitter icon button
+- [X] Refactor code to utilize vanilla JavaScript
 
 To-Do:
-- [ ] Refactor code to utilize vanilla JavaScript
 - [ ] Incorporate additional APIs for quote generation
 - [ ] Allow users to select from a list of categories for quote generation
 - [ ] Allow users to select from a list of categories for background image generation
 - [ ] Implement additional options for sharing quotes to social media
+- [ ] Allow users to save their favorite quotes
 
 User Stories Fulfilled:
 - [X] User Story #1: I can see a wrapper element with a corresponding id="quote-box".
@@ -58,5 +59,5 @@ Twitter - [@CBStanley12](https://twitter.com/CBStanley12)
 DEV - [cbstanley12](https://dev.to/cbstanley12)
 
 ## License
-**MIT License**: 
+**MIT License**:
 A short and simple permissive license with conditions only requiring preservation of copyright and license notices. Licensed works, modifications, and larger works may be distributed under different terms and without source code.

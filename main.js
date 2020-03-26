@@ -1,43 +1,30 @@
-$(document).ready(function() {
-	$.ajaxSetup({
-		cache: false
-	});
-  
-  	$.ajax({
-		url: "https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&callback=''$_jsonp=?",
-		success: function(data) {
-			var post = data.shift();
-			$('#author').text(post.title);
-			$('#text').html(post.content);
-		},
-		cache: false
-	});
+const AUTHOR = document.querySelector(`#author`);
+const QUOTE = document.querySelector(`#text`);
+const BG_IMG = document.querySelector(`.bgImg`);
 
-	$('#tweet-quote').attr('href', "https://twitter.com/intent/tweet?text=" + $('#text').text().replace(/\s/g,"%20") + " - " + $('#author').text().replace(/\s/g,"%20"));
-	$('.bgImg').attr('src', "https://source.unsplash.com/random/1600x900");
 
-  	$('#new-quote').on('click', function() {
-  		$('.blockquote').fadeOut('slow');
-  		$('.bgImg').fadeOut('slow');
+window.onload = () => {
+	getData();
+};
 
-	    $.ajax({
-	      url: "https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&callback=''$_jsonp=?",
-	      success: function(data) {
-	        var post = data.shift();
-	        $('#author').text(post.title);
-	        $('#text').html(post.content);
-	      }
-	    });
+async function getData() {
+	let quote = fetch(`https://programming-quotes-api.herokuapp.com/quotes/random`);
+	let image = fetch(`https://picsum.photos/1920/1080`);
 
-	    var sourceImage = "https://source.unsplash.com/featured/1600x900?sig=" + Math.random();
-    	$('.bgImg').attr('src', sourceImage);
+	await quote;
+	await image;
 
-    	$('.blockquote').fadeIn('slow');
-    	$('.bgImg').fadeIn('slow');
-	});
+	quote.then(response => response.json())
+		.then(data => displayQuote(data))
 
-	$('#tweet-quote').on('click', function() {
-	    $('#tweet-quote').attr('href', 'https://twitter.com/intent/tweet?text="' + $('#text').text().replace(/\s/g,"%20") + '" - ' + $('#author').text().replace(/\s/g,"%20"));
-	});
-	
-});
+	image.then(data => displayImage(data))
+}
+
+function displayQuote(quote) {
+	AUTHOR.innerText = quote.author;
+	QUOTE.innerText = quote.en;
+}
+
+function displayImage(image) {
+	BG_IMG.src = image.url;
+}
