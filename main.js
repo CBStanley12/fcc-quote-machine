@@ -3,12 +3,18 @@ const AUTHOR = document.querySelector(`#author`);
 const QUOTE = document.querySelector(`#text`);
 const BG_IMG = document.querySelector(`.bg-img`);
 const LOADER = document.querySelector(`.loader`);
+const BTN_NEW_QUOTE = document.querySelector(`#new-quote`);
 
 
 window.onload = () => {
 	displayLoader(true);
 	getData();
 };
+
+BTN_NEW_QUOTE.addEventListener('click', () => {
+	displayLoader(true);
+	getData();
+});
 
 async function getData() {
 	let quote = fetch(`https://programming-quotes-api.herokuapp.com/quotes/random`);
@@ -27,8 +33,12 @@ async function getData() {
 
 function displayLoader(state) {
 	if (state) {
+		QUOTE_BOX.style.display = `none`;
+		BG_IMG.style.display = `none`;
 		LOADER.style.display = `block`;
 	} else {
+		QUOTE_BOX.style.display = `block`;
+		BG_IMG.style.display = `block`;
 		LOADER.style.display = `none`;
 	}
 }
