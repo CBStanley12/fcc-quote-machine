@@ -1,9 +1,12 @@
-const QUOTE_BOX = document.querySelector(`#quote-box`);
+const COLOR_THIEF = new ColorThief();
+
+const QUOTE_CARD = document.querySelector(`.card`);
 const AUTHOR = document.querySelector(`#author`);
 const QUOTE = document.querySelector(`#text`);
-const BG_IMG = document.querySelector(`.bg-img`);
+const BACKGROUND = document.querySelector(`.background`);
 const LOADER = document.querySelector(`.loader`);
 const BTN_NEW_QUOTE = document.querySelector(`#new-quote`);
+const BTN_TWEET_QUOTE = document.querySelector(`#tweet-quote`);
 
 
 window.onload = () => {
@@ -16,6 +19,16 @@ BTN_NEW_QUOTE.addEventListener('click', () => {
 	getData();
 });
 
+BACKGROUND.addEventListener('load', () => {
+	let color = COLOR_THIEF.getColor(BACKGROUND);
+	let luminance = calcLuminance(color);
+	let primaryColor = `rgb(${color.join(",")})`;
+	let secondaryColor = (luminance < 145) ? 'white' : 'black';
+
+	document.documentElement.style.setProperty('--color-primary', primaryColor);
+	document.documentElement.style.setProperty('--color-secondary', secondaryColor);
+});
+
 async function getData() {
 	let quote = fetch(`https://programming-quotes-api.herokuapp.com/quotes/random`);
 	let image = fetch(`https://picsum.photos/1920/1080`);
@@ -23,33 +36,36 @@ async function getData() {
 	await quote;
 	await image;
 
-	displayLoader(false);
-
 	image.then(data => displayImage(data))
 
 	quote.then(response => response.json())
 		.then(data => displayQuote(data))
+
+	displayLoader(false);
 }
 
 function displayLoader(state) {
 	if (state) {
-		QUOTE_BOX.style.display = `none`;
-		BG_IMG.style.display = `none`;
+		QUOTE_CARD.classList.remove('is-loaded');
+		BACKGROUND.classList.remove('is-loaded');
 		LOADER.style.display = `block`;
 	} else {
-		QUOTE_BOX.style.display = `block`;
-		BG_IMG.style.display = `block`;
+		QUOTE_CARD.classList.add('is-loaded');
+		BACKGROUND.classList.add('is-loaded');
 		LOADER.style.display = `none`;
 	}
 }
 
 function displayQuote(quote) {
-	QUOTE_BOX.style.display = `block`;
-
 	AUTHOR.innerText = quote.author;
 	QUOTE.innerText = quote.en;
 }
 
 function displayImage(image) {
-	BG_IMG.style.backgroundImage = `url(${image.url})`;
+	BACKGROUND.src = `${image.url}`;
+}
+
+function calcLuminance(rgb) {
+	let [r, g, b] = rgb;
+	return Math.sqrt((r ** 2 * .241) + (g ** 2 * .691) + (b ** 2 * .068));
 }
