@@ -9,27 +9,13 @@ const BTN_NEW_QUOTE = document.querySelector(`#new-quote`);
 const BTN_TWEET_QUOTE = document.querySelector(`#tweet-quote`);
 
 
-window.onload = () => {
+window.onload = () => getNewQuote();
+BTN_NEW_QUOTE.addEventListener('click', getNewQuote);
+BACKGROUND.addEventListener('load', getColor);
+
+async function getNewQuote() {
 	displayLoader(true);
-	getData();
-};
 
-BTN_NEW_QUOTE.addEventListener('click', () => {
-	displayLoader(true);
-	getData();
-});
-
-BACKGROUND.addEventListener('load', () => {
-	let color = COLOR_THIEF.getColor(BACKGROUND);
-	let luminance = calcLuminance(color);
-	let primaryColor = `rgb(${color.join(",")})`;
-	let secondaryColor = (luminance < 145) ? 'white' : 'black';
-
-	document.documentElement.style.setProperty('--color-primary', primaryColor);
-	document.documentElement.style.setProperty('--color-secondary', secondaryColor);
-});
-
-async function getData() {
 	let quote = fetch(`https://programming-quotes-api.herokuapp.com/quotes/random`);
 	let image = fetch(`https://picsum.photos/1920/1080`);
 
@@ -58,14 +44,43 @@ function displayLoader(state) {
 
 function displayQuote(quote) {
 	AUTHOR.innerText = quote.author;
-	QUOTE.innerText = quote.en;
+	QUOTE.innerText = `"${quote.en}"`;
 }
 
 function displayImage(image) {
 	BACKGROUND.src = `${image.url}`;
 }
 
+function getColor() {
+	let colorPalette = COLOR_THIEF.getPalette(BACKGROUND);
+	let primaryColor, secondaryColor;
+
+	for (let i = 0; i < colorPalette.length; i++) {
+		let luminance = parseInt(calcLuminance(colorPalette[i]));
+		let contrastRatio = calcContrastRatio(luminance);
+
+		if (contrastRatio >= 5) {
+			primaryColor = `rgb(${colorPalette[i].join(",")})`;
+			secondaryColor = `rgba(${colorPalette[i].join(",") + ",0.9"})`
+			break;
+		} else {
+			primaryColor = `rgb(0,0,0)`;
+			secondaryColor = `rgba(0,0,0,0.9)`;
+		}
+	}
+
+	console.log(primaryColor, secondaryColor);
+	document.documentElement.style.setProperty('--color-primary', primaryColor);
+	document.documentElement.style.setProperty('--color-secondary', secondaryColor);
+}
+
 function calcLuminance(rgb) {
 	let [r, g, b] = rgb;
-	return Math.sqrt((r ** 2 * .241) + (g ** 2 * .691) + (b ** 2 * .068));
+	let luminance = (0.2126 * r) + (0.7152 * g) + (0.0722 * b);
+
+	return luminance.toFixed(2);
+}
+
+function calcContrastRatio(luminance) {
+	return ((255 + 0.05) / (luminance + 0.05)).toFixed(2);
 }
