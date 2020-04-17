@@ -185,4 +185,8 @@ a {
 		max-width: 95vw;
 		padding: 0.5rem 1rem;
 	}
+
+	.card figure blockquote {
+		text-align: start;
+	}
 }
